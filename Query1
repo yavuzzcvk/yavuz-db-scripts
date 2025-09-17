@@ -1,0 +1,28 @@
+
+-- Bu çalışmada  Microsoft'un  ücretsiz veri tabanlarından  **ContosoRetailDW** kullanıldı 
+-- Yıl ve Aylık bazda  satış toplamlarını bir önceki ay ile karşılaştırmak ve aralarındaki pozitif veya negatif büyüme oranını hesaplamak amacı ile yapıldı 
+
+
+	WITH MonthlySales  as (
+	 -- Aylık satışların tutulduğu cte
+	SELECT	
+		YEAR(fs.DateKey) as SalesYear,
+		MONTH(fs.DateKey) as SalesMonth,
+		SUM(fs.SalesAmount) as TotalSales
+	FROM 
+		FactSales fs
+	GROUP BY 
+		YEAR(fs.DateKey),
+		MONTH(fs.DateKey) 
+	)
+
+	SELECT
+		SalesYear,SalesMonth,TotalSales,
+		LAG(TotalSales,1,0) OVER ( ORDER BY SalesYear, SalesMonth ) as LastMonth,  -- Geçen ayın toplam satış verisi 
+		(TotalSales - LAG(TotalSales,1,0) OVER ( ORDER BY SalesYear, SalesMonth ) ) / NULLIF(LAG(TotalSales,1,0) OVER ( ORDER BY SalesYear, SalesMonth ),0) as GrowthRate
+		-- Büyüme oranı için (nullif) payda kısmı  0 olursa bunu null olarak göstermesini sağlayacak 
+	FROM 
+		MonthlySales
+	ORDER BY
+		SalesYear, SalesMonth
+
