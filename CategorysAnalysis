@@ -1,6 +1,6 @@
--- Bu çalışma microsoft'un  ContosoRetaildDW adlı veri tabanı kullanılarak yapılmıştır 
--- CTE-Windowfunctions ve SUM fonksiyonu kullanılmıştır 
--- Amacı = Her bir kategorinin en çok ciro yapan ürünlerini azalan şekilde sıralamak 
+-- Bu Ã§alÃ½Ã¾ma microsoft'un  ContosoRetaildDW adlÃ½ veri tabanÃ½ kullanÃ½larak yapÃ½lmÃ½Ã¾tÃ½r 
+-- CTE-Windowfunctions ve SUM fonksiyonu kullanÃ½lmÃ½Ã¾tÃ½r 
+-- AmacÃ½ = Her bir kategorinin en Ã§ok ciro yapan Ã¼rÃ¼nlerini azalan Ã¾ekilde sÃ½ralamak 
 
 WITH Categorys as ( 
 	SELECT
@@ -27,7 +27,7 @@ WITH Categorys as (
 		ProductName,
 		TotalSales,
 		RowNum
-		-- Ana sorgunun amacı sadece tablo başlıklarını vermek ve rownumber ile verilen numaraları  filtrelemek
+		-- Ana sorgunun amacÃ½ sadece tablo baÃ¾lÃ½klarÃ½nÃ½ vermek ve rownumber ile verilen numaralarÃ½  filtrelemek
 	FROM
 		Categorys 
 	WHERE
